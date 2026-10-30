@@ -1,0 +1,27 @@
+# Starts the AgriScan web app and an n8n instance side by side.
+#   docker compose up --build
+# App:  http://localhost:5000      n8n:  http://localhost:5678
+services:
+  app:
+    build: .
+    container_name: agriscan-app
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./models:/app/models
+    environment:
+      # Remove this line to skip n8n and run the model directly
+      - N8N_WEBHOOK_URL=http://n8n:5678/webhook/agriscan
+    depends_on:
+      - n8n
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: agriscan-n8n
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+volumes:
+  n8n_data:

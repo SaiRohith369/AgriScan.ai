@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+runs/
+data/plantvillage/
+data/raw/
+models/*.pt
+uploads/
+.pytest_cache/
+*.zip
